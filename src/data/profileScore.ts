@@ -3,9 +3,6 @@ import * as face from 'face-api.js'
 const canvas = require("canvas")
 require('@tensorflow/tfjs-core')
 require('@tensorflow/tfjs-node')
-// require('@tensorflow/tfjs-node-gpu')
-
-
 
 const token = process.env.GITHUB_ACCESS_TOKEN;
 
@@ -67,7 +64,6 @@ export const analyzeProfile = (username: string): any => {
         resolve();
       });
 
-
       const { Canvas, Image, ImageData } = canvas
       face.env.monkeyPatch({ Canvas, Image, ImageData })
 
@@ -95,7 +91,6 @@ export const analyzeProfile = (username: string): any => {
 
       const faceDetectionOptions = getFaceDetectorOptions(faceDetectionNet)
 
-
       const getIMG = async () => {
         await faceDetectionNet.loadFromDisk('weights')
         await face.nets.faceLandmark68Net.loadFromDisk('weights')
@@ -110,7 +105,6 @@ export const analyzeProfile = (username: string): any => {
           profileStats.picture = false
         }
       }
-​
       const data2 = getIMG()
 
       return Promise.all([data1, data2]).then(() => {
