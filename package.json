@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node target/index.js",
-    "postinstall": "tsc",
+    "postinstall": "npm run tsc",
     "dev": "nodemon .",
     "watch": "node_modules/.bin/tsc -w",
     "compile": "node_modules/.bin/tsc -p ."
