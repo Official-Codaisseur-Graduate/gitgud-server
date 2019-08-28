@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node target/index.js",
-    "postinstall": "tsc",
+    "start": "ts-node src/index.ts",
     "dev": "nodemon .",
     "watch": "node_modules/.bin/tsc -w",
     "compile": "node_modules/.bin/tsc -p ."
