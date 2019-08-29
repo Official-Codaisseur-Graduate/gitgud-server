@@ -27,7 +27,7 @@ export const fetchRepoData = (username, repoName) => {
         name
         description
         object(expression: "master:") {
-          ... on Tree {
+        ... on Tree {
             entries {
               name
               oid
@@ -53,6 +53,10 @@ export const fetchRepoData = (username, repoName) => {
                       node {
                         ... on Commit {
                           message
+                            author{
+                              name
+                            
+                          }
                         }
                       }
                     }
