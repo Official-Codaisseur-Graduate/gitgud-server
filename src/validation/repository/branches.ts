@@ -50,7 +50,6 @@ const totalScoreCalculator = (branchScore) => {
   const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length
   const totalScoreCalc = Object.values(branchScore).splice(0, 5)
   branchScore.totalScore = Math.round(average(totalScoreCalc))
-
 }
 
 const returnToDefault = () => {
@@ -59,7 +58,6 @@ const returnToDefault = () => {
   branchStats.hasDevelopmentBranch = false
   branchStats.hasFeatBranch = false
   branchStats.useDescriptiveNames = 0
-
 }
 
 export const branchValidation = (hasThreeBranches, branchNamePlusCommitCount) => {

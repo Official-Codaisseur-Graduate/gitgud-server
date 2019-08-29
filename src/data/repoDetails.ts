@@ -31,9 +31,15 @@ export const fetchRepoData = (username, repoName) => {
             entries {
               name
               oid
+              object{
+                ... on Blob{
+                  text
+                }
+              }
             }
           }
         }
+
         refs(refPrefix: "refs/heads/", first: 50) {
           totalCount
           edges {
@@ -60,10 +66,9 @@ export const fetchRepoData = (username, repoName) => {
     }
   `
   }).then(res => {
-    // console.log('REPO DATA=', res.data)
-    const name= res.data.repository.name
-    const createdAt= res.data.repository.createdAt
-    const entries= res.data.repository.object.entries
+    const name = res.data.repository.name
+    const createdAt = res.data.repository.createdAt
+    const entries = res.data.repository.object.entries
 
     const repoDescription = res.data.repository.description
       ? res.data.repository.description
@@ -78,7 +83,6 @@ export const fetchRepoData = (username, repoName) => {
     );
 
     const fileCheck = res.data.repository.object.entries;
-
     const commitMessages = res.data.repository.refs.edges.map(branch => {
       return branch.node.target.history.edges.map(commit => {
         const messages = commit.node.message;
@@ -87,7 +91,7 @@ export const fetchRepoData = (username, repoName) => {
     });
 
     const commitScore = commitValidation(commitMessages);
-    
+
     const branchScore = branchValidation(
       branchCount,
       branchNamePlusCommitCount
@@ -95,28 +99,59 @@ export const fetchRepoData = (username, repoName) => {
 
     const { gitIgnoreScore, repoReadMe } = fileValidation(fileCheck);
 
+
+    const dependenciesExistInDescription = () => {
+      const pkg_Json = res.data.repository.object.entries.find((en) =>
+        en.name === 'package.json')
+      if (pkg_Json) {
+        let index_Start = pkg_Json.object.text.search('dependencies')
+        const firstSlice = pkg_Json.object.text.slice(index_Start)
+        index_Start = firstSlice.indexOf('{') + 1
+        let index_Last = firstSlice.indexOf('}')
+        const dependencies = firstSlice.slice(index_Start, index_Last).split(',')
+        return dependencies.map((d) =>
+          d.split(':')[0])
+          .map(x => x.split('"')[1])
+          .some(y => {
+            if (repoDescription && repoDescription.toLowerCase().includes(y))
+              return true
+          })
+      }
+    }
+    const calculateDescriptionScore = () => {
+      let score = 100
+      if (!repoDescription) {
+        score -= 100
+        return score
+      }
+      if (!dependenciesExistInDescription())
+        score -= 40
+      if (repoDescription.length > 165 || repoDescription.length < 10)
+        score -= 40
+      return score
+    }
+    const descriptionScore = calculateDescriptionScore()
+
     const totalRepoScore = Math.round(scoreCalculator(
       commitScore,
       branchScore,
-      repoDescription,
+      descriptionScore,
       repoReadMe,
       gitIgnoreScore
     ));
 
-    const description = repoDescription ? true : false
     return {
       commitScore,
       branchScore,
       totalRepoScore,
       repoReadMe,
       gitIgnoreScore,
-      description,
+      description: descriptionScore,
       name,
-      createdAt, 
+      createdAt,
       entries
-
     };
   })
-  .catch(e => e)
+    .catch(e => e)
 };
 
