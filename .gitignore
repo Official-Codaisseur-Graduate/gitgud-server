@@ -8,6 +8,7 @@
 
 # testing
 /coverage
+/src/target
 
 # production
 /build
