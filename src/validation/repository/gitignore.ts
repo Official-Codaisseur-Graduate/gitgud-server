@@ -19,8 +19,6 @@ export const fileValidation = fileCheck => {
     const file = filename.toLowerCase();
     return file.includes("readme") ? 100 : 0;
   });
-
   repoReadMe = repoReadMe.includes(100) ? 100 : 0;
-
   return { gitIgnoreScore, repoReadMe };
 };

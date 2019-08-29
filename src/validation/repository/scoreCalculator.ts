@@ -12,7 +12,6 @@ export const scoreCalculator = (
   const readme = (repoReadme ? 100 : 0 )*(15 / 100 )
 
   const gitIgnoreScore = gitIgnore * (16 / 100);
-
   const totalGitUseScore = () => {
     return commit + branch + description + readme + gitIgnoreScore;
   };
