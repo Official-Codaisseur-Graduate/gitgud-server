@@ -17,7 +17,6 @@ const commitScore = {
 const scoreCalculator = (data, name, commitCount) => {
   const dataPerc = Math.round((data / commitCount)*100)
   commitScore[name] = dataPerc
-
 };
 
 const totalScoreCalculator = (commitScore) => {
@@ -31,8 +30,6 @@ const returnToDefault = () => {
   commitStats.containsAND = 0
   commitStats.constainsPeriod = 0
   commitStats.upperCase = 0
-
-  
 }
 
 export const commitValidation = commitMessages => {
@@ -80,7 +77,7 @@ export const commitValidation = commitMessages => {
 
   // check if Uppercase
   function isUpperCase(str) {
-    return str[0] === str.toUpperCase()[0];
+    return str === str.toUpperCase();
   }
   const firstWords = commitMessages.map(branch =>
     branch.map(message => message.split(" ", 2)[0])
@@ -90,7 +87,7 @@ export const commitValidation = commitMessages => {
   );
   const upperCaseCount = upperCaseCheck.map(branch =>
     branch.reduce((partial_sum, a) => partial_sum + a)
-  ); 
+  );
   commitStats.upperCase = upperCaseCount.reduce(
     (partial_sum, a) => partial_sum + a
   );

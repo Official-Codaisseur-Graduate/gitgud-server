@@ -1,8 +1,6 @@
 import { createApolloFetch } from "apollo-fetch";
 import * as face from 'face-api.js'
 const canvas = require("canvas")
-require('@tensorflow/tfjs-node')
-
 const token = process.env.GITHUB_ACCESS_TOKEN;
 
 export const analyzeProfile = (username: string): any => {
@@ -35,7 +33,7 @@ export const analyzeProfile = (username: string): any => {
             }`
   })
     .then(res => {
-      // console.log('RES DATA=', res)
+      //console.log('RES DATA=', res)
       const user = res.data.user;
       const image = `${user.avatarUrl}`;
       let score = 0;
@@ -63,7 +61,6 @@ export const analyzeProfile = (username: string): any => {
         resolve();
       });
 
-      // Draw the canvas
       const { Canvas, Image, ImageData } = canvas
       face.env.monkeyPatch({ Canvas, Image, ImageData })
 
@@ -91,23 +88,23 @@ export const analyzeProfile = (username: string): any => {
 
       const faceDetectionOptions = getFaceDetectorOptions(faceDetectionNet)
 
-      // Detect face from image
       const getIMG = async () => {
         await faceDetectionNet.loadFromDisk('weights')
         await face.nets.faceLandmark68Net.loadFromDisk('weights')
-​
+
         const img = await canvas.loadImage(image)
         const result = await face.detectAllFaces(img, faceDetectionOptions)
-        // console.log('FaceDetection result:', result)
-​
+       // console.log('FaceDetection result:', result)
+
         if (result[0] && result[0].score > 0.5) {
           score += 10
-        } else {
+        }
+        else {
           profileStats.picture = false
         }
       }
-      const data2 = getIMG()
 
+      const data2 = getIMG()
       return Promise.all([data1, data2]).then(() => {
         return { username, score, profileStats };
       });

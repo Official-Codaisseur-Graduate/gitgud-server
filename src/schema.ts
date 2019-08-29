@@ -6,11 +6,11 @@ import { fetchGeneralData } from "./data/gitUse";
 import { Score } from "./score/entity";
 
 const typeDefs = `
-
   type Query {
     user(username: String): User
     repository(owner: String, name: String): Repository
   }
+
   type User {
     username: String
     score: Int
@@ -56,7 +56,7 @@ const typeDefs = `
     totalRepoScore: Int
     repoReadMe: Int
     gitIgnoreScore: Int
-    description: Boolean 
+    description: Int 
   }
 
   type Commit {
@@ -105,7 +105,6 @@ const resolvers = {
           const TEST = await fetchRepoData(repo.owner, repo.name).then(
             repoData => {
               if (!repoData) throw new Error();
-
               averageRepoScore += repoData.totalRepoScore;
               data.stats.repoNames[i] = {
                 ...data.stats.repoNames[i],
@@ -118,7 +117,6 @@ const resolvers = {
               };
             }
           );
-
           return TEST;
         });
 
@@ -141,11 +139,9 @@ const resolvers = {
       data.repoScore = 0;
       return data;
     },
-    repository: async (_, args , __, ___,)=> {
-       const data = await fetchRepoData(args.owner, args.name)
-      //  console.log('THIS IS DATA', data)
-
-       return data
+    repository: async (_, args, __, ___, ) => {
+      const data = await fetchRepoData(args.owner, args.name)
+      return data
     }
   }
 };
@@ -163,7 +159,7 @@ const saveScoreIfUpdated = (score, lastScore) => {
     const oldScoreValue = lastScore.gitScore + lastScore.profileScore;
     if (
       new Date().toLocaleDateString() ===
-        lastScore.createdAt.toLocaleDateString() &&
+      lastScore.createdAt.toLocaleDateString() &&
       newScore === oldScoreValue
     ) {
       return;
