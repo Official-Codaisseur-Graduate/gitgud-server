@@ -80,7 +80,7 @@ export const commitValidation = commitMessages => {
 
   // check if Uppercase
   function isUpperCase(str) {
-    return str === str.toUpperCase();
+    return str[0] === str.toUpperCase()[0];
   }
   const firstWords = commitMessages.map(branch =>
     branch.map(message => message.split(" ", 2)[0])
@@ -90,7 +90,7 @@ export const commitValidation = commitMessages => {
   );
   const upperCaseCount = upperCaseCheck.map(branch =>
     branch.reduce((partial_sum, a) => partial_sum + a)
-  );
+  ); 
   commitStats.upperCase = upperCaseCount.reduce(
     (partial_sum, a) => partial_sum + a
   );
