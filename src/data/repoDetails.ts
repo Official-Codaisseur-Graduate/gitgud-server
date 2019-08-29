@@ -60,7 +60,7 @@ export const fetchRepoData = (username, repoName) => {
     }
   `
   }).then(res => {
-    console.log('REPO DATA=', res.data)
+    // console.log('REPO DATA=', res.data)
     const name= res.data.repository.name
     const createdAt= res.data.repository.createdAt
     const entries= res.data.repository.object.entries
