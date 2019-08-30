@@ -56,7 +56,7 @@ const typeDefs = `
     totalRepoScore: Int
     repoReadMe: Int
     gitIgnoreScore: Int
-    description: Int 
+    description: Int
   }
 
   type Commit {
