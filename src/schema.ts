@@ -139,11 +139,9 @@ const resolvers = {
       data.repoScore = 0;
       return data;
     },
-    repository: async (_, args , __, ___,)=> {
-       const data = await fetchRepoData(args.owner, args.name)
-      //  console.log('THIS IS DATA', data)
-
-       return data
+    repository: async (_, args, __, ___, ) => {
+      const data = await fetchRepoData(args.owner, args.name)
+      return data
     }
   }
 };
