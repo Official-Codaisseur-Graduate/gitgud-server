@@ -49,7 +49,7 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 
 ## Running the app locally
 Clone app from Official-Codaisseur-Graduate/gitgud-server (git@github.com:Official-Codaisseur-Graduate/gitgud-server.git)
-Need to run npm install after cloning <br> Follow the steps below <br>
+ <br> Follow the steps below <br>
 > Server needs to be launched with GitHub token to enable GitHub API requests. <br>
 > [See instructions to create GitHub token here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). (don't forget to check user scopes)
 Once you've created a token on GitHub, copy it, you'll need id :) <br>
@@ -60,7 +60,7 @@ Once you've created a token on GitHub, copy it, you'll need id :) <br>
 Clone the repository <br>
 Setup a local postgresql database (username: postgres, password:secret)<br>
 <br>
-cd into server <br>
+cd into folder <br>
  `$ npm install` <br> 
  `GITHUB_ACCESS_TOKEN=<YOURTOKEN> npm run dev` <br>
  <br>
