@@ -64,15 +64,7 @@ cd into server <br>
  `$ npm install` <br> 
  `GITHUB_ACCESS_TOKEN=<YOURTOKEN> npm run dev` <br>
  <br>
-cd into client <br>
- `$ npm install` <br>
- `$ npm run dev` <br>
 
-
-> * For Windows follow these steps:
-> 1. `Install Microsoft Visual Studio 2019 and enable Desktop development with C++` 
-> 2. `npm install --global windows-build-tools` 
-> 3.  `npm run dev`
 
 
 ## Deployment server to Heroku
