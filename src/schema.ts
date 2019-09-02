@@ -80,7 +80,6 @@ const typeDefs = `
 const resolvers = {
   Query: {
     user: async (_, { username }, __, ___) => {
-      console.log('USERNAME!!', username)
       const data = await analyzeProfile(username);
       const gitUse = await fetchGeneralData(username);
       data.stats = gitUse;
