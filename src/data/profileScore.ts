@@ -94,7 +94,7 @@ export const analyzeProfile = (username: string): any => {
 
         const img = await canvas.loadImage(image)
         const result = await face.detectAllFaces(img, faceDetectionOptions)
-        
+
         if (result[0] && result[0].score > 0.5) {
           score += 10
         }

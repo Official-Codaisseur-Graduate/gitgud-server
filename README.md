@@ -1,7 +1,6 @@
 # gitgud-server
 A validator of your GitHub profile and Git use, designed to provide feedback for job seekers and graduated students.
 
-
 ## Table of contents:
 
 * **[How](#how)**
@@ -15,11 +14,11 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 
 1. It checks your public profile - A good GitHub profile can impress an interviewer.
 2. It validates your pinned repositories on how you use Git - Proper use of version control with Git can show that you are a structured worker and are able to work in development teams. We chose to focus on your pinned repos because you can present certain project as your portfolio for potential employers
-3. It is also possible to go to individual repositories and look at their ratings, this can be done by typing githubname/reponame in the form. 
+3. It is also possible to go to individual repositories and look at their ratings, this can be done by typing github-name/repo-name in the form. 
 
 ## Why
 
-* You can use GitHub as your resume for job hunting. For developers it is important to code regularly, be able to work in teams, communicate properly and continue with a learning curve. Obviously this is something you can say you are the best in and write it on your resume, but with GitHub you are able to show that you can do this. Which will give you headsup on your next interview.
+* You can use GitHub as your resume for job hunting. For developers it is important to code regularly, be able to work in teams, communicate properly and continue with a learning curve. Obviously this is something you can say you are the best in and write it on your resume, but with GitHub you are able to show that you can do this. Which will give you heads-up on your next interview.
 * Unfortunately many recent graduates or job seekers lack a proper GitHub profile. And as Codaisseur teachers can acknowledge, the feedback they get is repetitive. Therefore we developed this tool and provide constructive feedback which is based on various resources across the internet and uses live data from the GitHub API.
 
 
@@ -43,7 +42,7 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 
 ## Next steps for the students continuing this project
 * Improve naming in the server directory (files, functions and variables), so structure is more understandable
-* Schema.ts file can be splitted into two files one only defining type and other with resolver 
+* Schema.ts file can be splitted into two files, one only defining type and other with resolver 
 
 ## Running the app locally
 Clone app from Official-Codaisseur-Graduate/gitgud-server (git@github.com:Official-Codaisseur-Graduate/gitgud-server.git)
@@ -64,13 +63,13 @@ cd into server <br>
  <br>
 cd into client <br>
  `$ npm install` <br>
- `$ npm run start` <br>
+ `$ npm run dev` <br>
 
 
 > * For Windows follow these steps:
 > 1. `Install Microsoft Visual Studio 2019 and enable Desktop development with C++` 
 > 2. `npm install --global windows-build-tools` 
-> 3.  `npm run start`
+> 3.  `npm run dev`
 
 
 ## Deployment server to Heroku
