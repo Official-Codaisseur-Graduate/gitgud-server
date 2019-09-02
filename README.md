@@ -8,7 +8,7 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 * **[Who](#who)**
 * **[Technologies](#technologies)**
 * **[Running the app locally](#running-the-app-locally)**
-* **[Deployment server to Heroku](#deployment-server-to-heroku
+* **[Deployment server to Heroku](#deployment-server-to-heroku)**
 
 ## How
 
@@ -31,8 +31,9 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 * **Mario Nezmah** - *Repository page* -  [mnezmah](https://github.com/mnezmah)
 * **Jelle Monen**    [jelle89](https://github.com/jelle89)
 * **Subash Pradhan** [SubashPradhan](https://github.com/SubashPradhan)
-* **Ducatrinh** [Ducatrinh](https://github.com/ducatrinh)
+* **Duc Trinh** [Ducatrinh](https://github.com/ducatrinh)
 * **Halyna Burdiian** [Verdie](https://github.com/verdie)
+* **Shawn Wu** [Mqspx800](https://github.com/Mqspx800)
 
 
 ## Technologies
@@ -43,6 +44,8 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 ## Next steps for the students continuing this project
 * Improve naming in the server directory (files, functions and variables), so structure is more understandable
 * Schema.ts file can be splitted into two files, one only defining type and other with resolver 
+* Extra feature: Feedback on the commit usage of individuals when there is multiple contributors on the project
+
 
 ## Running the app locally
 Clone app from Official-Codaisseur-Graduate/gitgud-server (git@github.com:Official-Codaisseur-Graduate/gitgud-server.git)
