@@ -2,7 +2,7 @@ import { createApolloFetch } from "apollo-fetch";
 import * as face from 'face-api.js'
 const canvas = require("canvas")
 const token = process.env.GITHUB_ACCESS_TOKEN;
-//require("@tensorflow/tfjs-node")
+require("@tensorflow/tfjs-node")
 
 export const analyzeProfile = (username: string): any => {
   const fetch = createApolloFetch({
