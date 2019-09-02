@@ -34,7 +34,6 @@ export const analyzeProfile = (username: string): any => {
             }`
   })
     .then(res => {
-      //console.log('RES DATA=', res)
       const user = res.data.user;
       const image = `${user.avatarUrl}`;
       let score = 0;
@@ -95,8 +94,7 @@ export const analyzeProfile = (username: string): any => {
 
         const img = await canvas.loadImage(image)
         const result = await face.detectAllFaces(img, faceDetectionOptions)
-       // console.log('FaceDetection result:', result)
-
+        
         if (result[0] && result[0].score > 0.5) {
           score += 10
         }

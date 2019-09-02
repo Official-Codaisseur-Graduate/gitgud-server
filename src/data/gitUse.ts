@@ -52,11 +52,7 @@ export const fetchGeneralData = username => {
         }
         `
   }).then(res => {
-
-    // console.log(`REPOS RESULT`, res.data.user.pinnedRepositories.edges);
-    // console.log(res.data.user.pinnedRepositories.totalCount);
     const totalPinnedRepos = res.data.user.pinnedRepositories.totalCount;
-    // console.log(res.data.user.pinnedRepositories.totalCount + ' total count')
     if (totalPinnedRepos === 0) {
       return 0;
     } else {
@@ -78,9 +74,6 @@ export const fetchGeneralData = username => {
         }
       );
 
-      // console.log(totalPinnedRepos, '- totalPinnenRepo')
-      // console.log(repoPlusBranchCount, '- repoPlusBranchCount')
-      // console.log(branchNamePlusCommitCount, '-branchNamePlusCommitCount')
       const {
         averageBranchPerRepo,
         averageCommitPerBranch
@@ -89,8 +82,6 @@ export const fetchGeneralData = username => {
         repoPlusBranchCount,
         branchNamePlusCommitCount
       );
-
-      // console.log(totalPinnedRepos, averageBranchPerRepo, averageCommitPerBranch)
       const repoNames = repoPlusBranchCount.map(rep => {
         return { name: rep.repoName, 
           owner: rep.repoOwner }
