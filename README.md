@@ -30,10 +30,10 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 * **Demmy Honore de Vries**    [demmyhonore](https://github.com/demmyhonore)
 * **Mario Nezmah** - *Repository page* -  [mnezmah](https://github.com/mnezmah)
 * **Jelle Monen**    [jelle89](https://github.com/jelle89)
-* **Subash Pradhan** [SubashPradhan](https://github.com/SubashPradhan)
 * **Duc Trinh** [Ducatrinh](https://github.com/ducatrinh)
-* **Halyna Burdiian** [Verdie](https://github.com/verdie)
 * **Shawn Wu** [Mqspx800](https://github.com/Mqspx800)
+* **Halyna Burdiian** [Verdie](https://github.com/verdie)
+* **Subash Pradhan** [SubashPradhan](https://github.com/SubashPradhan)
 
 
 ## Technologies
@@ -69,12 +69,9 @@ cd into folder <br>
 
 ## Deployment server to Heroku
 
-NodeJS buildpack <br>
- `$ heroku buildpacks:add heroku/nodejs` <br>
-
 Push to Heroku <br>
- `$ git push heroku` <br>
- `$ heroku ps:scale web=1` <br>
+`$ git remote add heroku https://git.heroku.com/gitgud-server.git`<br>
+`$ git push heroku master`<br>
 
 > After deploying your app may scale down to 0 dynos
 > ... so increase dynos amount to the desired number
