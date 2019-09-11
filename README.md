@@ -30,10 +30,10 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 * **Demmy Honore de Vries**    [demmyhonore](https://github.com/demmyhonore)
 * **Mario Nezmah** - *Repository page* -  [mnezmah](https://github.com/mnezmah)
 * **Jelle Monen**    [jelle89](https://github.com/jelle89)
-* **Subash Pradhan** [SubashPradhan](https://github.com/SubashPradhan)
 * **Duc Trinh** [Ducatrinh](https://github.com/ducatrinh)
-* **Halyna Burdiian** [Verdie](https://github.com/verdie)
 * **Shawn Wu** [Mqspx800](https://github.com/Mqspx800)
+* **Halyna Burdiian** [Verdie](https://github.com/verdie)
+* **Subash Pradhan** [SubashPradhan](https://github.com/SubashPradhan)
 
 
 ## Technologies
@@ -49,7 +49,7 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 
 ## Running the app locally
 Clone app from Official-Codaisseur-Graduate/gitgud-server (git@github.com:Official-Codaisseur-Graduate/gitgud-server.git)
-Need to run npm install after cloning <br> Follow the steps below <br>
+ <br> Follow the steps below <br>
 > Server needs to be launched with GitHub token to enable GitHub API requests. <br>
 > [See instructions to create GitHub token here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). (don't forget to check user scopes)
 Once you've created a token on GitHub, copy it, you'll need id :) <br>
@@ -60,29 +60,18 @@ Once you've created a token on GitHub, copy it, you'll need id :) <br>
 Clone the repository <br>
 Setup a local postgresql database (username: postgres, password:secret)<br>
 <br>
-cd into server <br>
+cd into folder <br>
  `$ npm install` <br> 
  `GITHUB_ACCESS_TOKEN=<YOURTOKEN> npm run dev` <br>
  <br>
-cd into client <br>
- `$ npm install` <br>
- `$ npm run dev` <br>
 
-
-> * For Windows follow these steps:
-> 1. `Install Microsoft Visual Studio 2019 and enable Desktop development with C++` 
-> 2. `npm install --global windows-build-tools` 
-> 3.  `npm run dev`
 
 
 ## Deployment server to Heroku
 
-NodeJS buildpack <br>
- `$ heroku buildpacks:add heroku/nodejs` <br>
-
 Push to Heroku <br>
- `$ git push heroku` <br>
- `$ heroku ps:scale web=1` <br>
+`$ git remote add heroku https://git.heroku.com/gitgud-server.git`<br>
+`$ git push heroku master`<br>
 
 > After deploying your app may scale down to 0 dynos
 > ... so increase dynos amount to the desired number
