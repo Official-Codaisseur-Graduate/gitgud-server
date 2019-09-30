@@ -50,6 +50,14 @@ const typeDefs = `
     repoReadMe: Int
     gitIgnoreScore: Int
     description: Int
+    descriptionDetails: DescriptionDetails
+  }
+
+  type DescriptionDetails {
+    tooLong: Boolean
+    tooShort: Boolean
+    includesDependencies: Boolean
+    exists: Boolean
   }
 
   type Commit {
@@ -69,4 +77,4 @@ const typeDefs = `
     totalScore: Int
 }
 `;
-export default typeDefs
+export default typeDefs;
