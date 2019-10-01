@@ -13,7 +13,9 @@ let branchScore = {
   hasDevelopmentBranch: 0,
   hasFeatBranch: 0,
   useDescriptiveNames: 0,
-  totalScore: 0
+  totalScore: 0,
+  branchCount: 0,
+  properNamesCount: 0
 };
 
 const descriptiveNamingArray = [
@@ -43,7 +45,6 @@ const scoreCalculator = (branchCount) => {
 
   branchScore.useDescriptiveNames = Math.round(((branchCount - branchStats.useDescriptiveNames) / branchCount) * 100);
   branchScore.useDescriptiveNames < 0 ? (branchScore.useDescriptiveNames = 0) : null;
-
 };
 
 const totalScoreCalculator = (branchScore) => {
@@ -63,11 +64,11 @@ const returnToDefault = () => {
 export const branchValidation = (hasThreeBranches, branchNamePlusCommitCount) => {
 
   branchStats.hasThreeBranches = hasThreeBranches;
+  branchScore.branchCount = hasThreeBranches
 
   const arrayOfBranchNames = branchNamePlusCommitCount.map(
     branch => branch.branchName
   );
-
 
   arrayOfBranchNames.map(name => {
 
@@ -85,6 +86,9 @@ export const branchValidation = (hasThreeBranches, branchNamePlusCommitCount) =>
 
     descriptiveNamingArray.includes(featName) ? null : (branchStats.useDescriptiveNames += 1);
   });
+
+  branchScore.properNamesCount = branchStats.useDescriptiveNames
+
   scoreCalculator(hasThreeBranches);
 
   totalScoreCalculator(branchScore)

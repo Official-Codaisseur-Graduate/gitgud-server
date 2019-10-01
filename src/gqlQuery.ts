@@ -76,6 +76,8 @@ const typeDefs = `
     hasFeatBranch: Int
     useDescriptiveNames: Int
     totalScore: Int
+    branchCount: Int
+    properNamesCount: Int
 }
 `;
 export default typeDefs;
