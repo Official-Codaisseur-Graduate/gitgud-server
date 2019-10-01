@@ -4,8 +4,7 @@ import { fetchRepoData } from "./data/repoDetails";
 import { analyzeProfile } from "./data/profileScore";
 import { fetchGeneralData } from "./data/gitUse";
 import { Score } from "./score/entity";
-const typeDefs = require('./gqlQuery').default
-
+const typeDefs = require("./gqlQuery").default;
 
 const resolvers = {
   Query: {
@@ -42,8 +41,13 @@ const resolvers = {
                 description: repoData.description,
                 gitIgnoreScore: repoData.gitIgnoreScore,
                 repoReadMe: repoData.repoReadMe,
-                totalRepoScore: repoData.totalRepoScore
+                totalRepoScore: repoData.totalRepoScore,
+                descriptionDetails: repoData.descriptionDetails
               };
+              console.log(
+                "in resolver",
+                data.stats.repoNames[i].descriptionDetails
+              );
             }
           );
           return TEST;
@@ -68,9 +72,9 @@ const resolvers = {
       data.repoScore = 0;
       return data;
     },
-    repository: async (_, args, __, ___, ) => {
-      const data = await fetchRepoData(args.owner, args.name)
-      return data
+    repository: async (_, args, __, ___) => {
+      const data = await fetchRepoData(args.owner, args.name);
+      return data;
     }
   }
 };
@@ -88,7 +92,7 @@ const saveScoreIfUpdated = (score, lastScore) => {
     const oldScoreValue = lastScore.gitScore + lastScore.profileScore;
     if (
       new Date().toLocaleDateString() ===
-      lastScore.createdAt.toLocaleDateString() &&
+        lastScore.createdAt.toLocaleDateString() &&
       newScore === oldScoreValue
     ) {
       return;
