@@ -42,7 +42,8 @@ const resolvers = {
                 gitIgnoreScore: repoData.gitIgnoreScore,
                 repoReadMe: repoData.repoReadMe,
                 totalRepoScore: repoData.totalRepoScore,
-                descriptionDetails: repoData.descriptionDetails
+                descriptionDetails: repoData.descriptionDetails,
+                nodeModules: repoData.nodeModules
               };
             }
           );
