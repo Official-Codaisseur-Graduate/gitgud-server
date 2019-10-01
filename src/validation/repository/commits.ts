@@ -2,7 +2,7 @@ let commitStats = {
   lengthExceeds: 0,
   containsAND: 0,
   constainsPeriod: 0,
-  upperCase: 0
+  upperCase: 0,
 };
 
 // in whole percentages
@@ -11,7 +11,8 @@ const commitScore = {
   containsAND: 0,
   containsPeriod: 0,
   upperCase: 0,
-  totalScore: 0
+  commitCount: 0,
+  totalScore: 0,
 };
 
 const scoreCalculator = (data, name, commitCount) => {
@@ -37,7 +38,8 @@ export const commitValidation = commitMessages => {
   const commitCount = commitMessages
     .map(branch => branch.length)
     .reduce((partial_sum, a) => partial_sum + a);
-
+  console.log('commit count:', commitCount)
+  console.log('commit count:', commitCount)
   // check length
   const lengthCount = commitMessages.map(branch =>
     branch.map(commit => (commit.length > 50 ? 0 : 1))
@@ -93,7 +95,7 @@ export const commitValidation = commitMessages => {
   );
   scoreCalculator(commitStats.upperCase, "upperCase", commitCount);
   totalScoreCalculator(commitScore)
-  
+  commitScore.commitCount = commitCount
   returnToDefault()
   return commitScore;
 };

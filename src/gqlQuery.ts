@@ -65,6 +65,7 @@ const typeDefs = `
     containsAND: Int
     containsPeriod: Int
     upperCase: Int
+    commitCount: Int
     totalScore: Int
   }
 
