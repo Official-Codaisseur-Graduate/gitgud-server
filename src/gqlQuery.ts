@@ -51,6 +51,7 @@ const typeDefs = `
     gitIgnoreScore: Int
     description: Int
     descriptionDetails: DescriptionDetails
+    nodeModules: Boolean
   }
 
   type DescriptionDetails {

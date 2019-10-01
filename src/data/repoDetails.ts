@@ -70,6 +70,16 @@ export const fetchRepoData = (username, repoName) => {
   `
   })
     .then(res => {
+      // console.log(
+      //   "res on repoDetails object",
+      //   res.data.repository.object.entries[0].object
+      // );
+      // console.log("res on repoDetails refs", res.data.repository.refs);
+      // const gitIgn = res.data.repository.object.entries.find(
+      //   entry => entry.name === ".gitignore"
+      // );
+      // console.log("git ign", gitIgn);
+
       const name = res.data.repository.name;
       const createdAt = res.data.repository.createdAt;
       const entries = res.data.repository.object.entries;
@@ -154,6 +164,17 @@ export const fetchRepoData = (username, repoName) => {
       const descriptionScore = calculateDescriptionScore();
       const descriptionDetails = sendDescriptionDetails();
 
+      const nodeModules = res.data.repository.object.entries.find(
+        entry => entry.name === "node_modules"
+      )
+        ? true
+        : false;
+
+      // console.log("node modules", nodeModules);
+      // if (nodeModules) {
+      //   console.log("Node modules should be included in a .gitIgnore file");
+      // }
+
       const totalRepoScore = Math.round(
         scoreCalculator(
           commitScore,
@@ -174,7 +195,8 @@ export const fetchRepoData = (username, repoName) => {
         name,
         createdAt,
         entries,
-        descriptionDetails
+        descriptionDetails,
+        nodeModules
       };
     })
     .catch(e => e);
