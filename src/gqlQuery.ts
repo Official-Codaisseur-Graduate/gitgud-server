@@ -65,6 +65,7 @@ const typeDefs = `
     containsAND: Int
     containsPeriod: Int
     upperCase: Int
+    commitCount: Int
     totalScore: Int
   }
 
@@ -75,6 +76,8 @@ const typeDefs = `
     hasFeatBranch: Int
     useDescriptiveNames: Int
     totalScore: Int
+    branchCount: Int
+    properNamesCount: Int
 }
 `;
 export default typeDefs;
