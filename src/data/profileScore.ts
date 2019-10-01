@@ -1,8 +1,8 @@
 import { createApolloFetch } from "apollo-fetch";
-import * as face from 'face-api.js'
-const canvas = require("canvas")
+import * as face from "face-api.js";
+const canvas = require("canvas");
 const token = process.env.GITHUB_ACCESS_TOKEN;
-require("@tensorflow/tfjs-node")
+require("@tensorflow/tfjs-node");
 
 export const analyzeProfile = (username: string): any => {
   const fetch = createApolloFetch({
@@ -61,49 +61,47 @@ export const analyzeProfile = (username: string): any => {
         resolve();
       });
 
-      const { Canvas, Image, ImageData } = canvas
-      face.env.monkeyPatch({ Canvas, Image, ImageData })
+      const { Canvas, Image, ImageData } = canvas;
+      face.env.monkeyPatch({ Canvas, Image, ImageData });
 
-      const faceDetectionNet = face.nets.ssdMobilenetv1
+      const faceDetectionNet = face.nets.ssdMobilenetv1;
 
       // SsdMobilenetv1Options
-      const minConfidence = 0.5
+      const minConfidence = 0.5;
 
       // TinyFaceDetectorOptions
-      const inputSize = 408
-      const scoreThreshold = 0.5
+      const inputSize = 408;
+      const scoreThreshold = 0.5;
 
       // MtcnnOptions
-      const minFaceSize = 50
-      const scaleFactor = 0.8
+      const minFaceSize = 50;
+      const scaleFactor = 0.8;
 
       function getFaceDetectorOptions(net) {
         return net === face.nets.ssdMobilenetv1
           ? new face.SsdMobilenetv1Options({ minConfidence })
-          : (net === face.nets.tinyFaceDetector
-            ? new face.TinyFaceDetectorOptions({ inputSize, scoreThreshold })
-            : new face.MtcnnOptions({ minFaceSize, scaleFactor })
-          )
+          : net === face.nets.tinyFaceDetector
+          ? new face.TinyFaceDetectorOptions({ inputSize, scoreThreshold })
+          : new face.MtcnnOptions({ minFaceSize, scaleFactor });
       }
 
-      const faceDetectionOptions = getFaceDetectorOptions(faceDetectionNet)
+      const faceDetectionOptions = getFaceDetectorOptions(faceDetectionNet);
 
       const getIMG = async () => {
-        await faceDetectionNet.loadFromDisk('weights')
-        await face.nets.faceLandmark68Net.loadFromDisk('weights')
+        await faceDetectionNet.loadFromDisk("weights");
+        await face.nets.faceLandmark68Net.loadFromDisk("weights");
 
-        const img = await canvas.loadImage(image)
-        const result = await face.detectAllFaces(img, faceDetectionOptions)
+        const img = await canvas.loadImage(image);
+        const result = await face.detectAllFaces(img, faceDetectionOptions);
 
         if (result[0] && result[0].score > 0.5) {
-          score += 10
+          score += 10;
+        } else {
+          profileStats.picture = false;
         }
-        else {
-          profileStats.picture = false
-        }
-      }
+      };
 
-      const data2 = getIMG()
+      const data2 = getIMG();
       return Promise.all([data1, data2]).then(() => {
         return { username, score, profileStats };
       });

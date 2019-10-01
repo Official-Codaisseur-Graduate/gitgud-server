@@ -44,10 +44,6 @@ const resolvers = {
                 totalRepoScore: repoData.totalRepoScore,
                 descriptionDetails: repoData.descriptionDetails
               };
-              console.log(
-                "in resolver",
-                data.stats.repoNames[i].descriptionDetails
-              );
             }
           );
           return TEST;

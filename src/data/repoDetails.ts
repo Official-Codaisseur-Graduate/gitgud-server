@@ -134,10 +134,9 @@ export const fetchRepoData = (username, repoName) => {
 
         if (repoDescription.length > 165) {
           descriptionDetails.tooLong = true;
-        } else if (repoDescription.length < 10) {
+        } else if (repoDescription.length < 10 && repoDescription) {
           descriptionDetails.tooShort = true;
         }
-        console.log("function result", descriptionDetails.includesDependencies);
 
         return descriptionDetails;
       };
