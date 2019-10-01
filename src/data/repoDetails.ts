@@ -154,6 +154,12 @@ export const fetchRepoData = (username, repoName) => {
       const descriptionScore = calculateDescriptionScore();
       const descriptionDetails = sendDescriptionDetails();
 
+      const nodeModules = res.data.repository.object.entries.find(
+        entry => entry.name === "node_modules"
+      )
+        ? true
+        : false;
+
       const totalRepoScore = Math.round(
         scoreCalculator(
           commitScore,
@@ -174,7 +180,8 @@ export const fetchRepoData = (username, repoName) => {
         name,
         createdAt,
         entries,
-        descriptionDetails
+        descriptionDetails,
+        nodeModules
       };
     })
     .catch(e => e);
