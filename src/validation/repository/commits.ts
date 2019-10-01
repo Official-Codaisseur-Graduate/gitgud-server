@@ -38,8 +38,7 @@ export const commitValidation = commitMessages => {
   const commitCount = commitMessages
     .map(branch => branch.length)
     .reduce((partial_sum, a) => partial_sum + a);
-  console.log('commit count:', commitCount)
-  console.log('commit count:', commitCount)
+    
   // check length
   const lengthCount = commitMessages.map(branch =>
     branch.map(commit => (commit.length > 50 ? 0 : 1))
