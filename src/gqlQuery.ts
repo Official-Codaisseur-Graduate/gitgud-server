@@ -89,7 +89,6 @@ const typeDefs = `
 
   type Group {
     groupName: String
-  
   }
 `;
 export default typeDefs;

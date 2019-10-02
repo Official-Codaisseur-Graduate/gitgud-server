@@ -4,7 +4,7 @@ import { fetchRepoData } from "./data/repoDetails";
 import { analyzeProfile } from "./data/profileScore";
 import { fetchGeneralData } from "./data/gitUse";
 import { Score } from "./score/entity";
-// import { Group } from './group/entity'
+import { Group } from './group/entity'
 const typeDefs = require("./gqlQuery").default;
 
 const resolvers = {
@@ -80,12 +80,12 @@ const resolvers = {
     }
   },
   Mutation: {
-    // createGroup: async (_, { groupName }, __, ___) => {
-    //   const group = await new Group()
-    //   group.groupName = groupName
-    //   getRepository(Group).save(group)
-    //   return group
-    // },
+    createGroup: async (_, { groupName }, __, ___) => {
+      const group = await new Group()
+      group.groupName = groupName
+      getRepository(Group).save(group)
+      return group
+    },
     // addUserToGroup: async (_, args, __, ___) => {
     //   const { groupName, username } = args
     //   console.log('args:', args)
