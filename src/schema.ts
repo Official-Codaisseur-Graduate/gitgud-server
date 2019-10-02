@@ -86,21 +86,24 @@ const resolvers = {
       getRepository(Group).save(group)
       return group
     },
-    // addUserToGroup: async (_, args, __, ___) => {
-    //   const { groupName, username } = args
-    //   console.log('args:', args)
-    //   const group = await getRepository(Group).find({ groupName: groupName})
-    //   console.log('group:', group)
-    //   const scores = await getRepository(Score).find({ userName: username })
-    //   console.log('scores:',scores)
-    //   const scoresBelong = scores.map(async score => {
-    //     score.group = group[0]
-    //     await getRepository(Score).save(score)
-    //     console.log('score:', score)
-    //     return score
-    //   })
-    //   return scoresBelong
-    // }
+    addUserToGroup: async (_, args, __, ___) => {
+      const { groupName, username } = args
+      console.log('args:', args)
+      const group = await getRepository(Group).find({ groupName: groupName})
+      console.log('group:', group)
+      const scores = await getRepository(Score).find({ userName: username })
+      console.log('scores:',scores)
+      group[0].scores = scores
+      console.log('group and scores', group)
+      await getRepository(Group).save(group)
+      // scores.map(async score => {
+      //   score.group = group[0]
+      //   await getRepository(Score).save(score)
+      //   console.log('score:', score)
+      //   return score
+      // })
+      return group[0]
+    }
   }
 };
 
