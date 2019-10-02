@@ -3,8 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  CreateDateColumn
+  CreateDateColumn,
 } from "typeorm";
+// import { Group } from "../group/entity";
 
 @Entity()
 export class Score extends BaseEntity {
@@ -17,8 +18,11 @@ export class Score extends BaseEntity {
   @Column()
   profileScore: number;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   gitScore: number;
+
+  // @ManyToOne(() => Group, group => group.scores)
+  // group: Group;
 
   @CreateDateColumn()
   createdAt: Date;

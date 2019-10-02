@@ -2,6 +2,12 @@ const typeDefs = `
   type Query {
     user(username: String): User
     repository(owner: String, name: String): Repository
+    group(groupName: String): Group
+  }
+
+  type Mutation {
+    createGroup(groupName: String): Group
+    addUserToGroup(groupName: String, username: String): Group
   }
 
   type User {
@@ -79,6 +85,11 @@ const typeDefs = `
     totalScore: Int
     branchCount: Int
     properNamesCount: Int
-}
+  }
+
+  type Group {
+    groupName: String
+  
+  }
 `;
 export default typeDefs;

@@ -4,6 +4,7 @@ import { fetchRepoData } from "./data/repoDetails";
 import { analyzeProfile } from "./data/profileScore";
 import { fetchGeneralData } from "./data/gitUse";
 import { Score } from "./score/entity";
+// import { Group } from './group/entity'
 const typeDefs = require("./gqlQuery").default;
 
 const resolvers = {
@@ -72,7 +73,34 @@ const resolvers = {
     repository: async (_, args, __, ___) => {
       const data = await fetchRepoData(args.owner, args.name);
       return data;
+    },
+    group: async (_, { groupName }, __, ___) => {
+      const data = groupName
+      return data
     }
+  },
+  Mutation: {
+    // createGroup: async (_, { groupName }, __, ___) => {
+    //   const group = await new Group()
+    //   group.groupName = groupName
+    //   getRepository(Group).save(group)
+    //   return group
+    // },
+    // addUserToGroup: async (_, args, __, ___) => {
+    //   const { groupName, username } = args
+    //   console.log('args:', args)
+    //   const group = await getRepository(Group).find({ groupName: groupName})
+    //   console.log('group:', group)
+    //   const scores = await getRepository(Score).find({ userName: username })
+    //   console.log('scores:',scores)
+    //   const scoresBelong = scores.map(async score => {
+    //     score.group = group[0]
+    //     await getRepository(Score).save(score)
+    //     console.log('score:', score)
+    //     return score
+    //   })
+    //   return scoresBelong
+    // }
   }
 };
 
@@ -89,7 +117,7 @@ const saveScoreIfUpdated = (score, lastScore) => {
     const oldScoreValue = lastScore.gitScore + lastScore.profileScore;
     if (
       new Date().toLocaleDateString() ===
-        lastScore.createdAt.toLocaleDateString() &&
+      lastScore.createdAt.toLocaleDateString() &&
       newScore === oldScoreValue
     ) {
       return;
