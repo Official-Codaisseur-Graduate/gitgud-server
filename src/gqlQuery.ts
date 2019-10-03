@@ -94,7 +94,8 @@ const typeDefs = `
 
   type Score {
     userName: String
-    score: Int
+    profileScore: Int
+    reposScore: Int
   }
 
   type ProfileScore {
