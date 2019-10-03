@@ -2,7 +2,7 @@ const typeDefs = `
   type Query {
     user(username: String): User
     repository(owner: String, name: String): Repository
-    group(groupName: String): [ProfileScore]
+    group(groupName: String): ProfileScore
   }
 
   type Mutation {
@@ -94,13 +94,12 @@ const typeDefs = `
 
   type Score {
     userName: String
-    profileScore: Int
-    gitScore: Int
+    score: Int
   }
 
   type ProfileScore {
-    userName: String
-    score: Int
+    groupName: String
+    profiles: [Score]
   }
 `;
 export default typeDefs;

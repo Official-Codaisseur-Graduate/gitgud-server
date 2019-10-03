@@ -102,6 +102,8 @@ const resolvers = {
       const profiles = await Promise.all(profilesPromises) //.then().catch(console.error)
       console.log('profiles', profiles)
       const profilesResponse = profiles.map((profile: any) => {
+        console.log('typeof:', typeof profile.score)
+
         const nameAndScore = {
           userName: profile.username,
           score: profile.score
@@ -111,7 +113,11 @@ const resolvers = {
 
       console.log('profile responses:', profilesResponse)
 
-      return profilesResponse
+      return {
+        groupName: groupAndScores.groupName,
+        profiles: profilesResponse
+      }
+        
 
       const generalDataPromises = userNames.map(async username => {
         const data = await fetchGeneralData(username)
