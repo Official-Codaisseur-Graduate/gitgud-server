@@ -75,14 +75,38 @@ const resolvers = {
       return data;
     },
     group: async (_, { groupName }, __, ___) => {
-      // const group = await getRepository(Group).find({ groupName: groupName})
-      const scores = await getRepository(Group)
+      const groupAndScores: any = await getRepository(Group)
         .createQueryBuilder("group")
-        .where("group.groupName = :groupName", { groupName: groupName })
+        .where("group.groupName = :groupName",  { groupName: groupName })
         .leftJoinAndSelect("group.scores", "score")
         .getOne()
 
-      return scores
+      console.log('group anf scores:', groupAndScores)
+
+      const userNames = groupAndScores.scores.map(score => {
+        const name = score.userName
+        console.log('name', name)
+        return name
+      })
+
+      console.log('arrayOfNames:', userNames)
+
+      const profilesPromises = userNames.map(async username => {
+        const profile = await analyzeProfile(username)
+        // console.log('profile:', profile)
+        return profile
+      })
+      const profiles = await Promise.all(profilesPromises) //.then().catch(console.error)
+      console.log('profiles', profiles)
+
+      const generalDataPromises = userNames.map(async username => {
+        const data = await fetchGeneralData(username)
+        // console.log('generaldata:', data)
+        return data
+      })
+      const generalData = await Promise.all(generalDataPromises)
+      console.log('general data', generalData)
+      return groupAndScores
     }
   },
   Mutation: {
