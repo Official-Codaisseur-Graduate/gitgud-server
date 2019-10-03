@@ -87,9 +87,12 @@ const resolvers = {
         const name = score.userName
         console.log('name', name)
         return name
-      })
+      }).reduce((namesArr, name) => {
+        if (namesArr.includes(name) === false) namesArr.push(name)
+        return namesArr
+      }, [])
 
-      console.log('arrayOfNames:', userNames)
+      // console.log('arrayOfNames:', userNames)
 
       const profilesPromises = userNames.map(async username => {
         const profile = await analyzeProfile(username)
@@ -98,6 +101,17 @@ const resolvers = {
       })
       const profiles = await Promise.all(profilesPromises) //.then().catch(console.error)
       console.log('profiles', profiles)
+      const profilesResponse = profiles.map((profile: any) => {
+        const nameAndScore = {
+          userName: profile.username,
+          score: profile.score
+        }
+        return nameAndScore
+      })
+
+      console.log('profile responses:', profilesResponse)
+
+      return profilesResponse
 
       const generalDataPromises = userNames.map(async username => {
         const data = await fetchGeneralData(username)
