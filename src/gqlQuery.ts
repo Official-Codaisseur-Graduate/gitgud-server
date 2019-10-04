@@ -94,7 +94,7 @@ const typeDefs = `
 
   type Group {
     groupName: String
-    
+    scores: [Score]
   }
 
   type Score {
