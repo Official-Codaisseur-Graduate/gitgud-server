@@ -6,8 +6,13 @@ const typeDefs = `
   }
 
   type Mutation {
-    createGroup(groupName: String): Group
+    createGroup(input: GroupWithUsers): Group
     addUserToGroup(groupName: String, username: String): Group
+  }
+
+  input GroupWithUsers {
+    groupName: String
+    userNames: [String]
   }
 
   type User {
@@ -89,7 +94,7 @@ const typeDefs = `
 
   type Group {
     groupName: String
-    scores: [Score]
+    
   }
 
   type Score {

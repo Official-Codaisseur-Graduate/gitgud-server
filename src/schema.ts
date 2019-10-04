@@ -124,7 +124,7 @@ const resolvers = {
           })
 
           const reposScores = await Promise.all(repoPromises)
-          const sumTotalScore = reposScores.reduce<number>((sum:number, num:number) => sum + num, 0)
+          const sumTotalScore = reposScores.reduce<number>((sum: number, num: number) => sum + num, 0)
           const avgTotalScore = Math.round(sumTotalScore / reposScores.length)
           return avgTotalScore
         }
@@ -138,9 +138,19 @@ const resolvers = {
     }
   },
   Mutation: {
-    createGroup: async (_, { groupName }, __, ___) => {
+    createGroup: async (_, { input }, __, ___) => {
+      const { groupName, userNames } = input
       const group = await new Group()
       group.groupName = groupName
+
+      const allScoresPromises = userNames.map(async name => {
+        const scores = await getRepository(Score).find({ userName: name })
+        return scores
+      })
+      const allScores:any = await Promise.all(allScoresPromises)
+      const scoresFlat = [].concat.apply([], allScores)
+      group.scores = scoresFlat
+
       getRepository(Group).save(group)
       return group
     },
