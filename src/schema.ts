@@ -124,9 +124,8 @@ const resolvers = {
           })
 
           const reposScores = await Promise.all(repoPromises)
-          const avgTotalScore = reposScores.reduce((avg: number, num: number) => (avg + num) / reposScores.length)
-          console.log('repos:', reposScores)
-          console.log('avg score for repos:', avgTotalScore)
+          const sumTotalScore = reposScores.reduce<number>((sum:number, num:number) => sum + num, 0)
+          const avgTotalScore = Math.round(sumTotalScore / reposScores.length)
           return avgTotalScore
         }
         return 0
