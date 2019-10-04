@@ -4,22 +4,23 @@ import {
   Column,
   BaseEntity,
   CreateDateColumn,
+  JoinTable,
+  ManyToMany
 } from "typeorm";
+import {Score} from '../score/entity'
 
 @Entity()
-export class Score extends BaseEntity {
+export class Group extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  userName: string;
-
-  @Column()
-  profileScore: number;
-
-  @Column({ default: 0 })
-  gitScore: number;
+  groupName: string;
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @ManyToMany(() => Score)
+  @JoinTable()
+  scores: Score[];
 }
