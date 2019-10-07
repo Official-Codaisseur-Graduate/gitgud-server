@@ -4,7 +4,9 @@ import { fetchRepoData } from "./data/repoDetails";
 import { analyzeProfile } from "./data/profileScore";
 import { fetchGeneralData } from "./data/gitUse";
 import { Score } from "./score/entity";
-import { Group } from './group/entity'
+import { Group } from './group/entity';
+import {validate} from "class-validator";
+
 const typeDefs = require("./gqlQuery").default;
 
 const resolvers = {
@@ -143,16 +145,23 @@ const resolvers = {
       const group = await new Group()
       group.groupName = groupName
 
-      const allScoresPromises = userNames.map(async name => {
-        const scores = await getRepository(Score).find({ userName: name })
-        return scores
-      })
-      const allScores:any = await Promise.all(allScoresPromises)
-      const scoresFlat = [].concat.apply([], allScores)
-      group.scores = scoresFlat
 
-      getRepository(Group).save(group)
-      return group
+      const errors = await validate(group);
+      if (errors.length > 0) {
+        throw new Error(`Validation failed!`);
+      } else {
+        const allScoresPromises = userNames.map(async name => {
+          const scores = await getRepository(Score).find({ userName: name })
+          return scores
+        })
+        const allScores: any = await Promise.all(allScoresPromises)
+        const scoresFlat = [].concat.apply([], allScores)
+        group.scores = scoresFlat
+
+        getRepository(Group).save(group)
+        return group
+      }
+
     },
     addUserToGroup: async (_, args, __, ___) => {
       const { groupName, username } = args
