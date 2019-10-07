@@ -8,7 +8,8 @@ import {
   ManyToMany,
   Unique
 } from "typeorm";
-import {Score} from '../score/entity'
+import { MinLength, MaxLength } from "class-validator";
+import { Score } from '../score/entity'
 
 @Entity()
 @Unique(["groupName"])
@@ -17,6 +18,8 @@ export class Group extends BaseEntity {
   id: number;
 
   @Column()
+  @MinLength(4)
+  @MaxLength(20)
   groupName: string;
 
   @CreateDateColumn()
