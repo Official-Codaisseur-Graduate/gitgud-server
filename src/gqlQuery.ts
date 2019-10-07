@@ -2,12 +2,17 @@ const typeDefs = `
   type Query {
     user(username: String): User
     repository(owner: String, name: String): Repository
-    group(groupName: String): ProfileScore
+    group(groupName: String): ProfileOnlyScore
   }
 
   type Mutation {
-    createGroup(groupName: String): Group
+    createGroup(input: GroupWithUsers): Group
     addUserToGroup(groupName: String, username: String): Group
+  }
+
+  input GroupWithUsers {
+    groupName: String
+    userNames: [String]
   }
 
   type User {
@@ -98,7 +103,7 @@ const typeDefs = `
     reposScore: Int
   }
 
-  type ProfileScore {
+  type ProfileOnlyScore {
     groupName: String
     profiles: [Score]
   }

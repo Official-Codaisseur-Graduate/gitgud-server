@@ -5,11 +5,13 @@ import {
   BaseEntity,
   CreateDateColumn,
   JoinTable,
-  ManyToMany
+  ManyToMany,
+  Unique
 } from "typeorm";
 import {Score} from '../score/entity'
 
 @Entity()
+@Unique(["groupName"])
 export class Group extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
