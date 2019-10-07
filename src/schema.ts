@@ -4,8 +4,10 @@ import { fetchRepoData } from "./data/repoDetails";
 import { analyzeProfile } from "./data/profileScore";
 import { fetchGeneralData } from "./data/gitUse";
 import { Score } from "./score/entity";
-const typeDefs = require('./gqlQuery').default
+import { Group } from './group/entity';
+import {validate} from "class-validator";
 
+const typeDefs = require("./gqlQuery").default;
 
 const resolvers = {
   Query: {
@@ -42,7 +44,9 @@ const resolvers = {
                 description: repoData.description,
                 gitIgnoreScore: repoData.gitIgnoreScore,
                 repoReadMe: repoData.repoReadMe,
-                totalRepoScore: repoData.totalRepoScore
+                totalRepoScore: repoData.totalRepoScore,
+                descriptionDetails: repoData.descriptionDetails,
+                nodeModules: repoData.nodeModules
               };
             }
           );
@@ -68,9 +72,111 @@ const resolvers = {
       data.repoScore = 0;
       return data;
     },
-    repository: async (_, args, __, ___, ) => {
-      const data = await fetchRepoData(args.owner, args.name)
-      return data
+    repository: async (_, args, __, ___) => {
+      const data = await fetchRepoData(args.owner, args.name);
+      return data;
+    },
+    group: async (_, { groupName }, __, ___) => {
+      const groupAndScores: any = await getRepository(Group)
+        .createQueryBuilder("group")
+        .where("group.groupName = :groupName", { groupName: groupName })
+        .leftJoinAndSelect("group.scores", "score")
+        .getOne()
+
+      const userNames = groupAndScores.scores
+        .map(score => {
+          const name = score.userName
+          return name
+        })
+        .reduce((namesArr, name) => {
+          if (namesArr.includes(name) === false) namesArr.push(name)
+          return namesArr
+        }, [])
+
+      const profilesPromises = userNames.map(async username => {
+        const profile = await analyzeProfile(username)
+        return profile
+      })
+
+      const profiles = await Promise.all(profilesPromises)
+      const profilesResponse = profiles.map((profile: any) => {
+        const avgTotalRepoScore = getTotalRepoScoreForProfile(profile.username)
+          .then()
+
+        const nameAndScore = {
+          userName: profile.username,
+          profileScore: profile.score,
+          reposScore: avgTotalRepoScore
+
+        }
+        return nameAndScore
+      })
+
+      async function getTotalRepoScoreForProfile(username) {
+        const data = await fetchGeneralData(username)
+        console.log('generaldata:', data)
+        if (data.totalPinnedRepos > 0) {
+          const repoPromises = data.repoNames.map(async (repo) => {
+            return fetchRepoData(repo.owner, repo.name)
+              .then(repoData => {
+                if (!repoData) throw new Error()
+                const whatWeNeed = repoData.totalRepoScore
+                return whatWeNeed
+              })
+          })
+
+          const reposScores = await Promise.all(repoPromises)
+          const sumTotalScore = reposScores.reduce<number>((sum: number, num: number) => sum + num, 0)
+          const avgTotalScore = Math.round(sumTotalScore / reposScores.length)
+          return avgTotalScore
+        }
+        return 0
+      }
+
+      return {
+        groupName: groupAndScores.groupName,
+        profiles: profilesResponse
+      }
+    }
+  },
+  Mutation: {
+    createGroup: async (_, { input }, __, ___) => {
+      const { groupName, userNames } = input
+      const group = await new Group()
+      group.groupName = groupName
+
+
+      const errors = await validate(group);
+      if (errors.length > 0) {
+        throw new Error(`Validation failed!`);
+      } else {
+        const allScoresPromises = userNames.map(async name => {
+          const scores = await getRepository(Score).find({ userName: name })
+          return scores
+        })
+        const allScores: any = await Promise.all(allScoresPromises)
+        const scoresFlat = [].concat.apply([], allScores)
+        group.scores = scoresFlat
+
+        getRepository(Group).save(group)
+        return group
+      }
+
+    },
+    addUserToGroup: async (_, args, __, ___) => {
+      const { groupName, username } = args
+      const groupAndScores: any = await getRepository(Group)
+        .createQueryBuilder("group")
+        .where("group.groupName = :groupName", { groupName: groupName })
+        .leftJoinAndSelect("group.scores", "score")
+        .getOne()
+
+      const scores = await getRepository(Score).find({ userName: username })
+      const allScores = [...groupAndScores.scores, ...scores]
+      groupAndScores.scores = allScores
+      await getRepository(Group).save(groupAndScores)
+      console.log('group with scores', groupAndScores)
+      return groupAndScores
     }
   }
 };

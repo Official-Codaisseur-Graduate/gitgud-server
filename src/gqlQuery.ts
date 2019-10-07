@@ -2,6 +2,17 @@ const typeDefs = `
   type Query {
     user(username: String): User
     repository(owner: String, name: String): Repository
+    group(groupName: String): ProfileOnlyScore
+  }
+
+  type Mutation {
+    createGroup(input: GroupWithUsers): Group
+    addUserToGroup(groupName: String, username: String): Group
+  }
+
+  input GroupWithUsers {
+    groupName: String
+    userNames: [String]
   }
 
   type User {
@@ -50,6 +61,15 @@ const typeDefs = `
     repoReadMe: Int
     gitIgnoreScore: Int
     description: Int
+    descriptionDetails: DescriptionDetails
+    nodeModules: Boolean
+  }
+
+  type DescriptionDetails {
+    tooLong: Boolean
+    tooShort: Boolean
+    includesDependencies: Boolean
+    exists: Boolean
   }
 
   type Commit {
@@ -57,6 +77,7 @@ const typeDefs = `
     containsAND: Int
     containsPeriod: Int
     upperCase: Int
+    commitCount: Int
     totalScore: Int
   }
 
@@ -67,6 +88,24 @@ const typeDefs = `
     hasFeatBranch: Int
     useDescriptiveNames: Int
     totalScore: Int
-}
+    branchCount: Int
+    properNamesCount: Int
+  }
+
+  type Group {
+    groupName: String
+    scores: [Score]
+  }
+
+  type Score {
+    userName: String
+    profileScore: Int
+    reposScore: Int
+  }
+
+  type ProfileOnlyScore {
+    groupName: String
+    profiles: [Score]
+  }
 `;
-export default typeDefs
+export default typeDefs;

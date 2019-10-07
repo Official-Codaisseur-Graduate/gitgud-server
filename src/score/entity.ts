@@ -3,7 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  CreateDateColumn
+  CreateDateColumn,
 } from "typeorm";
 
 @Entity()
@@ -17,7 +17,7 @@ export class Score extends BaseEntity {
   @Column()
   profileScore: number;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   gitScore: number;
 
   @CreateDateColumn()
