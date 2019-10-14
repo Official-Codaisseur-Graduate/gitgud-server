@@ -1,6 +1,6 @@
 # gitgud-server
 
-A validator of your GitHub profile and Git use, designed to provide feedback for job seekers and graduated students.
+A validator of your GitHub profile and Git use, designed to provide feedback for job seekers and graduated students.<br>
 You can find the repository for the client side [here](https://github.com/Official-Codaisseur-Graduate/gitgud-client).
 
 ## Table of contents:
@@ -55,7 +55,8 @@ You can find the repository for the client side [here](https://github.com/Offici
 
 ## Running the app locally
 
-- Server needs to be launched with GitHub token to enable GitHub API requests. <br> > [See instructions to create GitHub token here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). (!don't forget to check user scopes!)
+- Server needs to be launched with GitHub token to enable GitHub API requests. <br> 
+[See instructions to create GitHub token here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). (Don't forget to check user's scopes!)
 - File client/src/index.js contains the server url. If you want to run local server, change it to your localhost.
 - Setup a local postgresql database (username: postgres, password:secret)
 - In the terminal, run
