@@ -1,6 +1,7 @@
 # gitgud-server
 
 A validator of your GitHub profile and Git use, designed to provide feedback for job seekers and graduated students.
+You can find the repository for the client side [here](https://github.com/Official-Codaisseur-Graduate/gitgud-client).
 
 ## Table of contents:
 
@@ -42,8 +43,8 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 
 ## Technologies
 
-- TypeScript, TypeORM, GraphQL, Apollo/KoaServer, Face-api.js <br>
-- GitHub API v4 - GraphQL <br>
+- TypeScript, TypeORM, GraphQL, Apollo/KoaServer, Face-api.js
+- GitHub API v4 - GraphQL
 
 ## Next steps for the students continuing this project
 
@@ -54,31 +55,23 @@ A validator of your GitHub profile and Git use, designed to provide feedback for
 
 ## Running the app locally
 
-Clone app from Official-Codaisseur-Graduate/gitgud-server (git@github.com:Official-Codaisseur-Graduate/gitgud-server.git)
-<br> Follow the steps below <br>
-
-> Server needs to be launched with GitHub token to enable GitHub API requests. <br> > [See instructions to create GitHub token here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). (!don't forget to check user scopes!)
-> Once you've created a token on GitHub, copy it, you'll need id :) <br>
-> client/src/index.js contains the server url.
-> If you want to run local server, change it to your localhost.<br>
-> Project uses face-api.js for face recognition.
-
-Clone the repository <br>
-Setup a local postgresql database (username: postgres, password:secret)<br>
-<br>
-cd into folder <br>
-`$ npm install` <br>
-`GITHUB_ACCESS_TOKEN=<YOURTOKEN> npm run dev` <br>
-<br>
+- Server needs to be launched with GitHub token to enable GitHub API requests. <br> > [See instructions to create GitHub token here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). (!don't forget to check user scopes!)
+- File client/src/index.js contains the server url. If you want to run local server, change it to your localhost.
+- Setup a local postgresql database (username: postgres, password:secret)
+- In the terminal, run
+```
+> git clone git@github.com:Official-Codaisseur-Graduate/gitgud-server.git
+> cd gitgud-server
+> npm install
+> GITHUB_ACCESS_TOKEN=<YOURTOKEN> npm run dev
+```
 
 ## Deployment server to Heroku
 
-Push to Heroku <br>
-`$ git remote add heroku https://git.heroku.com/gitgud-server.git`<br>
-`$ git push heroku master`<br>
-
-> After deploying your app may scale down to 0 dynos
-> ... so increase dynos amount to the desired number
+```
+> git remote add heroku https://git.heroku.com/gitgud-server.git
+> git push heroku master
+```
 
 ## Acknowledgments
 
